@@ -1,0 +1,31 @@
+{
+  "name": "cortex",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cortex — лицензируемый RAG-движок (HTTP-сервис на Hono). Контракт /api/v1.",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "init-dev": "tsx scripts/init-dev.ts",
+    "reindex": "tsx scripts/reindex.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@hono/node-server": "^1.13.0",
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "^0.36.0",
+    "hono": "^4.6.0",
+    "mammoth": "^1.12.0",
+    "postgres": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "drizzle-kit": "^0.28.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
