@@ -46,6 +46,8 @@ drizzle/               миграции (для чистой БД)
 ## Контракт `/api/v1`
 
 Аутентификация: заголовок `X-API-Key`. Тенант (`orgId`/`projectId`) берётся из ключа.
+Полный справочник по ручкам, форматам и тенантам — [docs/api.md](docs/api.md); парсинг товара — [docs/extract-product.md](docs/extract-product.md).
+Поставка компании (Docker-образ + цикл обновлений) — [docs/delivery.md](docs/delivery.md); выдача доступа Quotcat (POC) — [docs/quotcat-poc.md](docs/quotcat-poc.md).
 
 | Метод | Путь | Scope | Назначение |
 |--|--|--|--|
@@ -54,6 +56,7 @@ drizzle/               миграции (для чистой БД)
 | GET | `/api/v1/documents` | `documents` | Список документов тенанта. |
 | GET | `/api/v1/documents/:id` | `documents` | Содержимое документа. |
 | GET | `/api/v1/analytics` | `analytics` | Метрики покрытия (`coverageRate`). |
+| POST | `/api/v1/extract-product` | `extract` | Парсинг товара по ссылке (`{ url }`) → `{ data, meta }`. Только секретный ключ. См. [docs/extract-product.md](docs/extract-product.md). |
 | GET | `/health` | — | Readiness (проверка БД). |
 
 ## Смоук-тест
@@ -66,6 +69,15 @@ curl -s -XPOST localhost:8080/api/v1/documents -H "X-API-Key: $KEY" \
 curl -s -XPOST localhost:8080/api/v1/chat -H "X-API-Key: $KEY" \
   -H 'Content-Type: application/json' -d '{"message":"Как часто кормить котика?"}'
 ```
+
+## Тесты
+
+```bash
+npm test          # vitest — юнит-тесты чистой логики (без сети/БД)
+npm run typecheck # tsc --noEmit
+```
+
+Покрыто: SSRF (`isPrivateIp`), `htmlToText`/микроразметка, `chunker`, API-ключи (`generateApiKey`/`hashApiKey`/`effectiveProjectId`), `withRetry`, `extractProduct` (парсинг/коэрция, LLM замокан). Внешние вызовы (LLM/БД/сеть) не используются — мокаются.
 
 См. полный план и границы IP в `ai-support/refactoring/engine-refactor-plan.md` (Фаза 5,
 раздел 10) и `LICENSE`.
