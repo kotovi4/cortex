@@ -4,7 +4,7 @@ import { db } from "../db";
 import { apiKeys } from "../db/schema";
 
 export type ApiKeyType = "secret" | "public";
-export type Scope = "chat" | "documents" | "analytics";
+export type Scope = "chat" | "documents" | "analytics" | "extract";
 
 /**
  * Генерирует новый API-ключ. Префикс кодирует тип:

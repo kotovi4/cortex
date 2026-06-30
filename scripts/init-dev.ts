@@ -44,7 +44,7 @@ async function main() {
     name: "dev-seed",
     keyHash: hashApiKey(rawKey),
     type: "secret",
-    scopes: ["chat", "documents", "analytics"],
+    scopes: ["chat", "documents", "analytics", "extract"],
   });
 
   console.log("\n✅ api_keys готова. Сид-ключ (секрет, все scope, projectId=null):\n");

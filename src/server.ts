@@ -10,6 +10,7 @@ import documents from "./routes/documents";
 import analytics from "./routes/analytics";
 import search from "./routes/search";
 import generate from "./routes/generate";
+import extractProductRoute from "./routes/extract-product";
 
 const app = new Hono();
 
@@ -41,6 +42,7 @@ app.route("/api/v1/analytics", analytics);
 // Низкоуровневые примитивы для доверенных серверных поверхностей (секретный ключ):
 app.route("/api/v1/search", search);
 app.route("/api/v1/generate", generate);
+app.route("/api/v1/extract-product", extractProductRoute);
 
 const addr = process.env.SERVER_ADDRESS ?? "0.0.0.0:8080";
 const lastColon = addr.lastIndexOf(":");
